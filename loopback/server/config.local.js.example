@@ -1,0 +1,5 @@
+module.exports = {
+  //serverPort: 3000,
+  //kurentoWsUri: 'ws://localhost:8888/kurento',
+  //clientRoot: './../client'
+};
