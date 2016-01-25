@@ -12,5 +12,5 @@ Client
 
 * AngularJS
 
-Experiments usually expect Kurento to be installed and WS endpoint available on:  
+By default experiments expect Kurento to be installed and WS endpoint available on:  
 ws://localhost:8888/kurento
