@@ -3,22 +3,36 @@
 var _ = require('lodash');
 var co = require('co');
 var koa = require('koa');
+var serve = require('koa-static');
+var mount = require('koa-mount');
 var router = require('koa-joi-router');
 var Joi = router.Joi;
+var fs = require('fs');
 var http = require('http');
+var https = require('https');
 var kurento = require('kurento-client');
+
+var utils = require('../../shared/server');
 
 var config = _.defaults(require('./config.local.js'), {
   serverPort: 3000,
+  serverHttps: false,
   kurentoWsUri: 'ws://localhost:8888/kurento',
-  clientRoot: './../client'
+  clientRoot: './../client',
+  sharedRoot: './../../shared'
 });
 console.log('Config:');//XXX
 console.log(config);//XXX
 
+var shared = koa();
+shared.use(serve(config.sharedRoot));
+
 var app = koa();
-app.use(require('koa-static')(config.clientRoot, {}));
-var server = http.createServer(app.callback());
+app.use(mount('/shared', shared));
+app.use(serve(config.clientRoot));
+
+var server = utils.server.create(app, config);
+
 var io = require('socket.io')(server);
 
 io.on('connection', function(socket){
@@ -50,6 +64,7 @@ io.on('connection', function(socket){
     console.log('user disconnected');
   });
 });
+
 
 server.listen(config.serverPort);
 

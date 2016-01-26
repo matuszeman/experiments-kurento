@@ -8,8 +8,11 @@ var Joi = router.Joi;
 var http = require('http');
 var kurento = require('kurento-client');
 
+var utils = require('../../shared/server');
+
 var config = _.defaults(require('./config.local.js'), {
   serverPort: 3000,
+  serverHttps: false,
   kurentoWsUri: 'ws://localhost:8888/kurento',
   clientRoot: './../client'
 });
@@ -18,7 +21,9 @@ console.log(config);//XXX
 
 var app = koa();
 app.use(require('koa-static')(config.clientRoot, {}));
-var server = http.createServer(app.callback());
+
+var server = utils.server.create(app, config);
+
 var io = require('socket.io')(server);
 
 var sessions = {};
