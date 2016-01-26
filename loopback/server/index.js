@@ -79,6 +79,7 @@ function* start(socket, sdpOffer) {
   });
 
   yield endpoint.gatherCandidates();
+  addCandidates(socket);
 }
 
 function addCandidates(socket) {

@@ -67,6 +67,7 @@ function* start(socket, msg) {
   }
 
   yield gatherCandidates(socket, endpoint, msg.sdpOffer);
+  addCandidates(socket);
 }
 
 function* startSession(socket) {
@@ -118,6 +119,9 @@ function* connectToSession(socket, sessionId) {
 
   remoteEndpoint.connect(endpoint);
   endpoint.connect(remoteEndpoint);
+
+  socket.rtc.pipeline = pipeline;
+  socket.rtc.endpoint = endpoint;
 
   return endpoint;
 }
