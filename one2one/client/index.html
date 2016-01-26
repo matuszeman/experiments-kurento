@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App" ng-controller="AppController">
+<head>
+    <meta charset="UTF-8">
+    <title>Kurento Experiments</title>
+    <link rel="stylesheet" href="bower_components/angular/angular-csp.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+    <style>
+        video {
+            width: 100%;
+        }
+    </style>
+
+    <script src="bower_components/socket.io-client/socket.io.js"></script>
+    <script src="bower_components/adapter.js/adapter.js"></script>
+    <script src="bower_components/kurento-client/js/kurento-client.min.js"></script>
+    <script src="bower_components/kurento-utils/js/kurento-utils.min.js"></script>
+
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<body ng-cloak>
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2>Kurento Experiments - One to one call</h2>
+        <span flex></span>
+        <md-input-container>
+            <label>Session ID</label>
+            <input ng-model="sessionId">
+        </md-input-container>
+        <md-button ng-click="connectToSession(sessionId)">Connect to session</md-button>
+        <md-button ng-click="startSession()">Start session</md-button>
+    </div>
+</md-toolbar>
+<md-content layout="row">
+    <md-card flex="50">
+        <md-card-header>
+            <md-card-header-text>
+                <span class="md-title">Local stream</span>
+                <span class="md-subhead">Your camera stream</span>
+            </md-card-header-text>
+        </md-card-header>
+        <md-card-content>
+            <video rtc-video="rtc" autoplay poster="img/kurento-logo.png"></video>
+        </md-card-content>
+    </md-card>
+    <md-card flex="50">
+        <md-card-header>
+            <md-card-header-text>
+                <span class="md-title">Remote stream</span>
+                <span class="md-subhead">Stream from Kurento</span>
+            </md-card-header-text>
+        </md-card-header>
+        <md-card-content>
+            <video rtc-video="rtc" remote="true" autoplay poster="img/kurento-logo.png" ></video>
+        </md-card-content>
+    </md-card>
+
+</md-content>
+
+</body>
+</html>
