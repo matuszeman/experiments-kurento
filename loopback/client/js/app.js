@@ -56,7 +56,7 @@ module.factory('Rtc', function() {
       //oncandidategatheringdone: onIceCandidateDone
     };
 
-    self.peer = kurentoUtils.WebRtcPeer.WebRtcPeerSendonly(options, function(error) {
+    self.peer = kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options, function(error) {
       if(error) return onError(error);
       this.generateOffer(self.onOffer.bind(self));
     });
